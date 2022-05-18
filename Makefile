@@ -6,7 +6,7 @@ PATH_TO_YOUR_CONTAINER := ../ft_containers/includes/
 # ---------------------------------------------------------------------------- #
 NAME	:= run_test
 CXX		:= c++
-INCLUDES:= -Itest_srcs/includes -I$(PATH_TO_YOUR_CONTAINER)
+INCLUDES:= -Isrcs/includes -I$(PATH_TO_YOUR_CONTAINER)
 CXXFLAGS:= -Wall -Wextra -Werror -std=c++98 -pedantic-errors $(INCLUDES) -MMD -MP
 DEFINES	:= -D_VECTOR -D_MAP -D_STACK -D_SET
 
@@ -109,7 +109,7 @@ endif
 CXXFLAGS += $(DEFINES)
 OBJS_DIR:= objs/
 OBJS	:= $(addprefix $(OBJS_DIR), $(SRCS:.cpp=.o))
-SRCS_DIR:= test_srcs
+SRCS_DIR:= srcs
 VPATH	:= $(SRCS_DIR) \
 	$(SRCS_DIR)/vector \
 	$(SRCS_DIR)/map \
