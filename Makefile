@@ -56,13 +56,6 @@ SRCS	:= $(SRCS_) \
 			$(SRCS_SET)
 
 # ---------------------------------------------------------------------------- #
-# make std
-ifdef STD
-DEFINES	+= -DSTD
-NAME	:= std_test
-endif
-
-# ---------------------------------------------------------------------------- #
 # make single-container
 ifdef VECTOR
 DEFINES	:= -D_VECTOR
@@ -86,6 +79,13 @@ ifdef SET
 DEFINES	:= -D_SET
 SRCS	:= $(SRCS_) $(SRCS_SET)
 NAME	:= set_test
+endif
+
+# ---------------------------------------------------------------------------- #
+# make std
+ifdef STD
+DEFINES	+= -DSTD
+NAME	:= std_test
 endif
 
 # ---------------------------------------------------------------------------- #
@@ -159,6 +159,20 @@ stack	:  ## Only compile stack
 
 set	:  ## Only compile set
 	make re SET=1
+
+# std individual compilation
+
+vector-std	:  ## Only compile vector
+	make re STD=1 VECTOR=1
+
+map-std	:  ## Only compile map
+	make re STD=1 MAP=1
+
+stack-std	:  ## Only compile stack
+	make re STD=1 STACK=1
+
+set-std	:  ## Only compile set
+	make re STD=1 SET=1
 
 # ---------------------------------------------------------------------------- #
 # advanced rules

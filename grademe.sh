@@ -16,11 +16,29 @@ EOL="\n${RESET}"
 # --------------------------------- settings --------------------------------- #
 logfile="result.log"
 stdfile="std.log"
+option=""
+
+# ------------------------------ setup arguments ----------------------------- #
+if [ $# == 0 ]; then
+	:
+elif [ $1 == "vector" ]; then
+	option="vector"
+elif [ $1 == "map" ]; then
+	option="map"
+elif [ $1 == "stack" ]; then
+	option="stack"
+elif [ $1 == "set" ]; then
+	option="set"
+fi
 
 # ------------------------------- check tester ------------------------------- #
+stdoption="std"
+if [ "$option" != "" ]; then
+	stdoption="${option}-std"
+fi
 printf "${INFO}Checking for Tester Validity ...${EOL}"
-printf "${PROMPT} make -s std${EOL}"
-make -s std > /dev/null
+printf "${PROMPT} make -s ${stdoption} ${EOL}"
+make -s ${stdoption} > /dev/null
 
 printf "${PROMPT} ./std_test > $stdfile${EOL}"
 ./std_test > $stdfile
@@ -35,11 +53,16 @@ printf "${OK} : Tester returns 100%% for STD${EOL}"
 printf "\n"
 
 # --------------------------------- run test --------------------------------- #
+test_name=$option
+if [ "$option" == "" ]; then
+	option="ft"
+	test_name="run"
+fi
 printf "${INFO}Runnning Tester ...${EOL}"
-printf "${PROMPT} make -s ft${EOL}"
-make -s ft > /dev/null
+printf "${PROMPT} make -s ${option} ${EOL}"
+make ${option} > /dev/null
 
-./run_test 2>> $logfile
+./${test_name}_test 2>> $logfile
 printf "See ./$logfile for more details ...${EOL}"
 
 
