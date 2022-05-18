@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------- #
 # set path to your ft_container
 
-PATH_TO_YOUR_CONTAINER := ./includes/
+PATH_TO_YOUR_CONTAINER := ../ft_containers/includes/
 
 # ---------------------------------------------------------------------------- #
 NAME	:= run_test
@@ -82,7 +82,7 @@ SRCS	:= $(SRCS_) $(SRCS_STACK)
 NAME	:= stack_test
 endif
 
-ifdef SET 
+ifdef SET
 DEFINES	:= -D_SET
 SRCS	:= $(SRCS_) $(SRCS_SET)
 NAME	:= set_test
@@ -146,19 +146,19 @@ fclean	: clean # Remove executable
 re	: fclean all
 
 # ---------------------------------------------------------------------------- #
-# separate compilation
+# individual compilation
 
-vector :
-	make VECTOR=1
+vector	:  ## Only compile vector
+	make re VECTOR=1
 
-map :
-	make MAP=1
-	
-stack :
-	make STACK=1
+map	:  ## Only compile map
+	make re MAP=1
 
-set :
-	make SET=1
+stack	:  ## Only compile stack
+	make re STACK=1
+
+set	:  ## Only compile set
+	make re SET=1
 
 # ---------------------------------------------------------------------------- #
 # advanced rules
@@ -167,23 +167,9 @@ ft	: re  ## Recompile test with ft
 
 std	: ## Recompile test with std
 	make re STD=1
-	
-std+	: # Compile test with std
-	make STD=1
 
 bench	: ## Reompile benchmark test
 	make re BENCH=1
-
-bench+	: # Compile benchmark test
-	make BENCH=1
-
-review	: $(OBJS_DIR) ## Compile main.c wtih both ft and std
-	@$(CXX) $(CXXFLAGS) -o objs/42main.o -c 42main.cpp -D STD=1
-	@$(CXX) $(CXXFLAGS) -o std_$@ objs/42main.o
-	@echo executable: std_$@
-	@$(CXX) $(CXXFLAGS) -o objs/42main.o -c 42main.cpp
-	@$(CXX) $(CXXFLAGS) -o ft_$@ objs/42main.o
-	@echo executable: ft_$@
 
 help	: ## Display this help screen
 	@grep -E '^[a-zA-Z_-]+.*:.*?## .*$$' Makefile \
